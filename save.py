@@ -14,12 +14,8 @@ def to_pgm(space):
 
 
 def save_output(x0, y0, x1, y1, x2, y2):
-    first_vertices = f"{x0} {y0}"
-    second_vertices = f"{x1} {y1}"
-    third_vertices = f"{x2} {y2}"
-    with open("output.txt", "w") as fid:
-        fid.writelines(first_vertices)
-    with open("output.txt", "a") as fid:
-        fid.writelines(second_vertices)
-    with open("output.txt", "a") as fid:
-        fid.writelines(third_vertices)
+    vertices = [f"{x0:.3f} {y0:.3f}\n",
+                f"{x1:.3f} {y1:.3f}\n",
+                f"{x2:.3f} {y2:.3f}"]
+    with open("output.txt", "w") as file:
+        file.writelines(vertices)
