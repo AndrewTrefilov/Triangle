@@ -15,6 +15,7 @@ def draw_triangle():
         pixels = xiao(vertices[x0], vertices[y0], vertices[x1], vertices[y1])
         for x, y, color in pixels:
             space[x, y] = color
+    print(vertices)  # Потом удалить!!!!
     return space
 
 
