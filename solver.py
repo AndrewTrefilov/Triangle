@@ -1,7 +1,7 @@
 from draw_triangle import draw_triangle, add_noise
 from save import to_pgm, save_output
 from load import from_pgm
-from filtration import median_filter
+from filtration import median_filter, r_0
 from line_detection import hough_line
 from find_vertices import find_vertices
 import sys
@@ -12,6 +12,20 @@ if __name__ == "__main__":
         to_pgm(add_noise(draw_triangle(), float(sys.argv[2])))
     if sys.argv[1] == "-restore":
         raw_img = from_pgm(sys.argv[2])
-        accumulator, thetas, rhos = hough_line(median_filter(raw_img))
-        y0, x0, y1, x1, y2, x2 = find_vertices(accumulator, thetas, rhos)
+        count_black = space[space == 0].shape[0] / 250000
+
+        if count_black < 0.68:
+            filter_size = 7
+        elif count_black > 0.68 and count_black < 0.78:
+            filter_size = 5
+        elif count_black > 0.78 and count_black < 0.98:
+            filter_size = 3
+        else:
+            filter_size = None
+
+        if filter_size is None:
+            y0, x0, y1, x1, y2, x2 = r_0(raw_img)
+        else:
+            accumulator, thetas, rhos = hough_line(median_filter(raw_img))
+            y0, x0, y1, x1, y2, x2 = find_vertices(accumulator, thetas, rhos)
         save_output(y0, x0, y1, x1, y2, x2)

@@ -1,18 +1,47 @@
 import numpy as np
 
 
-def median_filter(space, filter_size=None):
-    count_black = space[space == 0].shape[0] / 250000
+def r_0(raw_img):
+    point_1, point_2 = np.zeros(2), np.zeros(2)
+    point_1[1] = np.where(raw_img != 0)[0][0]
+    point_1[0] = np.where(raw_img != 0)[1][0]
+    point_2[0] = np.where(raw_img != 0)[1][-1]
+    point_2[1] = np.where(raw_img != 0)[0][-1]
 
-    if count_black > 0.581 and count_black < 0.68:
-        filter_size = 7
-    elif count_black > 0.681 and count_black < 0.78:
-        filter_size = 5
-    elif count_black > 0.781 and count_black < 0.98:
-        filter_size = 3
-        
-    if filter_size is None:
-        return space
+    not_null = np.zeros([np.where(raw_img != 0)[0].shape[0], 2])
+    for i in range(np.where(raw_img != 0)[0].shape[0]):
+        not_null[i] = np.array(
+            [np.where(raw_img != 0)[1][i], np.where(raw_img != 0)[0][i]]
+        )
+
+    difference = np.zeros(not_null.shape[0])
+    for i in range(not_null.shape[0]):
+        difference[i] = (
+            np.abs(
+                (point_2[1] - point_1[1]) * not_null[i][0]
+                - (point_2[0] - point_1[0]) * not_null[i][1]
+                + point_2[0] * point_1[1]
+                - point_2[1] * point_1[0]
+            )
+            / ((point_2[1] - point_1[1]) ** 2 + (point_2[0] - point_1[0]) ** 2) ** 0.5
+        )
+    point_3 = not_null[np.argmax(difference)]
+
+    points = np.zeros([3, 2])
+    points[0] = point_1
+    points[1] = point_2
+    points[2] = point_3
+    return (
+        points[0][0],
+        points[0][1],
+        points[1][0],
+        points[1][1],
+        points[2][0],
+        points[2][1],
+    )
+
+
+def median_filter(space, filter_size):
     indexer = filter_size // 2
     median = (filter_size * filter_size) // 2
 
