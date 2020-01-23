@@ -15,9 +15,15 @@ def trash(accumulator, thetas, rhos):
     max_count = maxi[max_split_idx][(maxi[max_split_idx]).argsort()[-3:]]
 
     # Добавил еще ноль, так как соседние ро могут быть одинаковые o_O
-    rhos_0 = float(rhos[np.where(accumulator[:, max_split_idx[0]] == max_count[0])[0]][0])
-    rhos_1 = float(rhos[np.where(accumulator[:, max_split_idx[1]] == max_count[1])[0]][0])
-    rhos_2 = float(rhos[np.where(accumulator[:, max_split_idx[2]] == max_count[2])[0]][0])
+    rhos_0 = float(
+        rhos[np.where(accumulator[:, max_split_idx[0]] == max_count[0])[0]][0]
+    )
+    rhos_1 = float(
+        rhos[np.where(accumulator[:, max_split_idx[1]] == max_count[1])[0]][0]
+    )
+    rhos_2 = float(
+        rhos[np.where(accumulator[:, max_split_idx[2]] == max_count[2])[0]][0]
+    )
 
     return thetas_0, thetas_1, thetas_2, rhos_0, rhos_1, rhos_2
 

@@ -1,3 +1,4 @@
 *.pgm
 __pycache__/
 *.pyc
+output.txt
