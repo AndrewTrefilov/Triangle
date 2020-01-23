@@ -15,10 +15,10 @@ if __name__ == "__main__":
         raw_img = from_pgm(sys.argv[2])
         count_black = raw_img[raw_img == 0].shape[0] / 250000
 
-        if count_black < 0.58:
+        if count_black < 0.68:
             filter_size = 'random'
-        elif count_black > 0.58 and count_black < 0.68:
-            filter_size = 9
+        # elif count_black > 0.58 and count_black < 0.68:
+        #     filter_size = 9
         elif count_black > 0.68 and count_black < 0.78:
             filter_size = 5
         elif count_black > 0.78 and count_black < 0.98:
