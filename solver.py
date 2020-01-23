@@ -12,7 +12,7 @@ if __name__ == "__main__":
         to_pgm(add_noise(draw_triangle(), float(sys.argv[2])))
     if sys.argv[1] == "-restore":
         raw_img = from_pgm(sys.argv[2])
-        count_black = space[space == 0].shape[0] / 250000
+        count_black = raw_img[raw_img == 0].shape[0] / 250000
 
         if count_black < 0.68:
             filter_size = 7
