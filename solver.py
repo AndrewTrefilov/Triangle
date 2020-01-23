@@ -26,6 +26,7 @@ if __name__ == "__main__":
         if filter_size is None:
             y0, x0, y1, x1, y2, x2 = r_0(raw_img)
         else:
-            accumulator, thetas, rhos = hough_line(median_filter(raw_img))
+            accumulator, thetas, rhos = hough_line(median_filter(raw_img, filter_size))
             y0, x0, y1, x1, y2, x2 = find_vertices(accumulator, thetas, rhos)
         save_output(y0, x0, y1, x1, y2, x2)
+        print(y0, x0, y1, x1, y2, x2)

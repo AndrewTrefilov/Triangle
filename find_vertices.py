@@ -42,6 +42,4 @@ def find_vertices(accumulator, thetas, rhos):
     y0, x0 = get_xy(rhos_0, thetas_0, rhos_1, thetas_1)
     y1, x1 = get_xy(rhos_1, thetas_1, rhos_2, thetas_2)
     y2, x2 = get_xy(rhos_0, thetas_0, rhos_2, thetas_2)
-
-    print(x0, y0, x1, y1, x2, y2)
     return x0, y0, x1, y1, x2, y2
