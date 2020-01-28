@@ -1,12 +1,12 @@
 import numpy as np
-import math
+from math import sqrt
 
 
 def hough_line(img):
     # Rho and Theta ranges
     thetas = np.deg2rad(np.arange(-90.0, 90.0))
     width, height = img.shape
-    diag_len = int(round(math.sqrt(width * width + height * height)))  # max_dist
+    diag_len = int(round(sqrt(width * width + height * height)))  # max_dist
     rhos = np.linspace(-diag_len, diag_len, diag_len * 2.0)
 
     # Cache some resuable values

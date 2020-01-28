@@ -1,3 +1,4 @@
+from math import cos, sin
 import numpy as np
 
 
@@ -7,13 +8,12 @@ def trash(accumulator, thetas, rhos):
     for idx, array in enumerate(np.array_split(maxi, 6)):
         max_split_idx[idx] = idx * 30 + np.argmax(array)
     max_split_idx = max_split_idx[(maxi[max_split_idx]).argsort()[-3:]]
-
+    max_count = maxi[max_split_idx][(maxi[max_split_idx]).argsort()[-3:]]
+    
     thetas_0 = thetas[max_split_idx[0]]
     thetas_1 = thetas[max_split_idx[1]]
     thetas_2 = thetas[max_split_idx[2]]
-
-    max_count = maxi[max_split_idx][(maxi[max_split_idx]).argsort()[-3:]]
-
+    
     # Добавил еще ноль, так как соседние ро могут быть одинаковые o_O
     rhos_0 = float(
         rhos[np.where(accumulator[:, max_split_idx[0]] == max_count[0])[0]][0]
@@ -24,18 +24,17 @@ def trash(accumulator, thetas, rhos):
     rhos_2 = float(
         rhos[np.where(accumulator[:, max_split_idx[2]] == max_count[2])[0]][0]
     )
-
     return thetas_0, thetas_1, thetas_2, rhos_0, rhos_1, rhos_2
 
 
 def get_xy(rhos_first, thetas_first, rhos_second, thetas_second):
+    sin_thetas_first = sin(thetas_first)
+    sin_thetas_second = sin(thetas_second)
 
-    d = rhos_first / np.sin(thetas_first)
-    c = rhos_second / np.sin(thetas_second)
-
-    b = -np.cos(thetas_first) / np.sin(thetas_first)
-    a = -np.cos(thetas_second) / np.sin(thetas_second)
-
+    d = rhos_first / sin_thetas_first
+    c = rhos_second / sin_thetas_second
+    b = -cos(thetas_first) / sin_thetas_first
+    a = -cos(thetas_second) / sin_thetas_second
     x = (d - c) / (a - b)
     y = a * x + c
     return y, x
