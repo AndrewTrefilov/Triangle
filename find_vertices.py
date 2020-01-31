@@ -2,7 +2,8 @@ from math import cos, sin
 import numpy as np
 
 
-def trash(accumulator, thetas, rhos):
+def trash(accumulator, thetas):
+    rhos = np.linspace(-707, 707, 1414)
     maxi = accumulator[np.argmax(accumulator, axis=0), np.arange(180)]
     max_split_idx = np.zeros(6, dtype=int)
     for idx, array in enumerate(np.array_split(maxi, 6)):
@@ -40,9 +41,9 @@ def get_xy(rhos_first, thetas_first, rhos_second, thetas_second):
     return y, x
 
 
-def find_vertices(accumulator, thetas, rhos):
+def find_vertices(accumulator, thetas):
     thetas_0, thetas_1, thetas_2, rhos_0, rhos_1, rhos_2 = trash(
-        accumulator, thetas, rhos
+        accumulator, thetas
     )
     y0, x0 = get_xy(rhos_0, thetas_0, rhos_1, thetas_1)
     y1, x1 = get_xy(rhos_1, thetas_1, rhos_2, thetas_2)
