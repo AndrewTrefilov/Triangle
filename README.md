@@ -2,6 +2,10 @@ Triangle
 ==============================
 
 Генерация вершин треугольника, построение сторон по алгоритму Сяолиня, зашумление и восстановление координат
+<p align="center">
+  <img src="https://github.com/AndrewTrefilov/Triangle/blob/master/imgs/binary_crosses.png" />
+</p>
+
 
 Организация проекта
 ------------
